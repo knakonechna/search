@@ -4,13 +4,17 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'react-app',
     'plugin:prettier/recommended',
-    "prettier/flowtype",
-    "prettier/react",
-    "prettier/standard"
   ],
-  "plugins": ["@typescript-eslint", "react"],
+  "env": {
+    "browser": true,
+  },
+  "plugins": ["typescript", "@typescript-eslint", "react"],
   "rules": {
     "prettier/prettier": "error",
-    '@typescript-eslint/indent': ['error', 2]
+    '@typescript-eslint/indent': 0,
+    "react/prop-types": 1,
+    "react/no-unescaped-entities": 1,
+    "no-unused-vars": 1,
+    "@typescript-eslint/explicit-function-return-type": 1,
   }
 };
