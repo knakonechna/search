@@ -12,7 +12,6 @@ module.exports = {
   "rules": {
     "prettier/prettier": "error",
     '@typescript-eslint/indent': 0,
-    "react/prop-types": 1,
     "react/no-unescaped-entities": 1,
     "no-unused-vars": 1,
     "@typescript-eslint/explicit-function-return-type": 1,
