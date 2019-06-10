@@ -12,7 +12,6 @@ interface BooksListProps {
   classes: {
     active: string;
     paginationContainer: string;
-    paginationSubContainer: string;
   };
   page: number;
 }
@@ -43,8 +42,6 @@ const BooksList: FunctionComponent<BooksListProps> = ({
       pageRangeDisplayed={5}
       activeClassName={classes.active}
       containerClassName={classes.paginationContainer}
-      subContainerClassName={classes.paginationSubContainer}
-      disableInitialCallback
     />
   </>
 );
@@ -68,6 +65,5 @@ const styles = theme => ({
       display: 'none',
     },
   },
-  paginationSubContainer: {},
 });
 export default withStyles(styles)(BooksList);

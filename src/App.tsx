@@ -22,9 +22,12 @@ const App = (): JSX.Element => {
   const changePage = ({ selected }): void => setPage(selected + 1);
   return (
     <Layout>
+      <Typography variant="h3" color="textPrimary" gutterBottom>
+        Let`s search book for you!
+      </Typography>
       <SearchBar setQuery={setQuery} />
-      <Typography variant="h6" color="primary" gutterBottom>
-        {time}
+      <Typography variant="body2" color="textPrimary" gutterBottom>
+        Your last search was: {time}
       </Typography>
       {loaded ? (
         <BooksList
@@ -35,7 +38,7 @@ const App = (): JSX.Element => {
         />
       ) : (
         <Fade in={isLoading} unmountOnExit>
-          <CircularProgress color="secondary" />
+          <CircularProgress color="primary" />
         </Fade>
       )}
     </Layout>

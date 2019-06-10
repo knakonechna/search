@@ -9,7 +9,12 @@ interface LayoutProps {
   };
 }
 const Layout = ({ children, classes }: LayoutProps): JSX.Element => (
-  <Grid container className={classes.container} direction="column">
+  <Grid
+    container
+    className={classes.container}
+    direction="column"
+    justify="flex-start"
+  >
     {children}
   </Grid>
 );
@@ -18,6 +23,7 @@ const styles = ({ breakpoints }) => ({
   container: {
     padding: '41px 19px',
     margin: 'auto',
+    minHeight: '100vh',
     [breakpoints.up('md')]: {
       padding: '40px 20px',
       maxWidth: '1024px',
