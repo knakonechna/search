@@ -6,6 +6,7 @@ import BooksList from './components/BooksList/BooksList';
 import fetchSearchData from './hooks/fetchSearchData';
 import SearchBar from './components/SearchBar/SearchBar';
 import { booksOnOnePage } from './constants';
+import Typography from '@material-ui/core/Typography/Typography';
 
 const App = (): JSX.Element => {
   const [query, setQuery] = useState('');
@@ -16,13 +17,22 @@ const App = (): JSX.Element => {
   } = fetchSearchData(query, page);
   const loaded: boolean = !isLoading && numFound > 0;
   const totalPages = Math.ceil(numFound / booksOnOnePage);
+  const pageNumber = page - 1;
   const time = localStorage.getItem('lastSearch');
+  const changePage = ({ selected }): void => setPage(selected + 1);
   return (
     <Layout>
       <SearchBar setQuery={setQuery} />
-      <div>{time}</div>
+      <Typography variant="h6" color="primary" gutterBottom>
+        {time}
+      </Typography>
       {loaded ? (
-        <BooksList docs={docs} totalPages={totalPages} setPage={setPage} />
+        <BooksList
+          docs={docs}
+          totalPages={totalPages}
+          changePage={changePage}
+          page={pageNumber}
+        />
       ) : (
         <Fade in={isLoading} unmountOnExit>
           <CircularProgress color="secondary" />

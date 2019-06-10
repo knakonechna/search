@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import ReactPaginate from 'react-paginate';
 import { BookInterface } from '../../interfaces/BookInterface';
 import BookCard from '../BookCard/BookCard';
 import Grid from '@material-ui/core/Grid/Grid';
+import { withStyles } from '@material-ui/core';
 
-const BooksList: Function = ({ docs, totalPages }): JSX.Element => (
+interface BooksListProps {
+  changePage({ selected: number }): void;
+  totalPages: number;
+  docs: BookInterface[];
+  classes: {
+    active: string;
+    paginationContainer: string;
+    paginationSubContainer: string;
+  };
+  page: number;
+}
+
+const BooksList: FunctionComponent<BooksListProps> = ({
+  docs,
+  totalPages,
+  changePage,
+  classes,
+  page,
+}): JSX.Element => (
   <>
     <Grid container justify="space-between">
       {docs.map(
@@ -18,11 +37,37 @@ const BooksList: Function = ({ docs, totalPages }): JSX.Element => (
       nextLabel={'>'}
       breakLabel={'...'}
       pageCount={totalPages}
+      onPageChange={changePage}
+      initialPage={page}
       marginPagesDisplayed={2}
       pageRangeDisplayed={5}
-      activeClassName={'active'}
+      activeClassName={classes.active}
+      containerClassName={classes.paginationContainer}
+      subContainerClassName={classes.paginationSubContainer}
+      disableInitialCallback
     />
   </>
 );
-
-export default BooksList;
+const styles = theme => ({
+  active: {
+    background: theme.palette.primary.main,
+    color: theme.palette.common.white,
+  },
+  paginationContainer: {
+    padding: 0,
+    margin: 0,
+    display: 'flex',
+    listStyle: 'none',
+    justifyContent: 'center',
+    '& > li': {
+      padding: 5,
+      margin: 2,
+      cursor: 'pointer',
+    },
+    '& > li.disabled': {
+      display: 'none',
+    },
+  },
+  paginationSubContainer: {},
+});
+export default withStyles(styles)(BooksList);
