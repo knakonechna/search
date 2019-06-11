@@ -60,7 +60,7 @@ const styles = ({ breakpoints }) => ({
     height: 500,
     marginBottom: 50,
     padding: '50px 0px',
-    background: '#fff',
+    background: '#eeeff1',
     position: 'relative' as 'relative',
     [breakpoints.up('lg')]: {
       height: 400,
@@ -78,7 +78,7 @@ const styles = ({ breakpoints }) => ({
   arrowPrev: {
     borderLeft: '1px solid#000',
     left: -10,
-    transform: 'rotate(-45deg) translate(100%, 0%)',
+    transform: 'rotate(-45deg) translate(60%, 0%)',
     [breakpoints.up('md')]: {
       left: 20,
     },
@@ -86,7 +86,7 @@ const styles = ({ breakpoints }) => ({
   arrowNext: {
     borderRight: '1px solid#000',
     right: -10,
-    transform: 'rotate(45deg) translate(-100%, 0%)',
+    transform: 'rotate(45deg) translate(-60%, 0%)',
     [breakpoints.up('md')]: {
       right: 20,
     },
