@@ -16,7 +16,6 @@ interface BookCardProps {
     card: string;
     media: string;
     content: string;
-    textColor: string;
   };
 }
 
@@ -30,10 +29,10 @@ const BookCard: FunctionComponent<BookCardProps> = ({
       image={book.cover_i ? `${IMG_PATH}${book.cover_i}-L.jpg` : placeholder}
     />
     <CardContent className={classes.content}>
-      <Typography variant="h6" className={classes.textColor} gutterBottom>
+      <Typography variant="h6" color="textPrimary" gutterBottom>
         {sliceLongText(book.title, maxLengthOfTitle)}
       </Typography>
-      <Typography variant="body2" className={classes.textColor} gutterBottom>
+      <Typography variant="body2" color="textPrimary" gutterBottom>
         {book.author_name} {book.first_publish_year}
       </Typography>
     </CardContent>
@@ -45,7 +44,7 @@ const styles = ({ breakpoints }) => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column' as 'column',
-    background: '#e3e9f6',
+    background: '#eeeff1',
     [breakpoints.up('md')]: {
       flexDirection: 'row' as 'row',
       width: 'calc(50% - 7.5px)',
@@ -72,9 +71,6 @@ const styles = ({ breakpoints }) => ({
     flexDirection: 'column' as 'column',
     justifyContent: 'space-between',
     textAlign: 'center' as 'center',
-  },
-  textColor: {
-    color: '#F0353C',
   },
 });
 export default withStyles(styles)(BookCard);

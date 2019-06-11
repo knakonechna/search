@@ -7,6 +7,7 @@ import fetchSearchData from './hooks/fetchSearchData';
 import SearchBar from './components/SearchBar/SearchBar';
 import { booksOnOnePage } from './constants';
 import Typography from '@material-ui/core/Typography/Typography';
+import Slider from './components/Slider/Slider';
 
 const App = (): JSX.Element => {
   const [query, setQuery] = useState('');
@@ -20,6 +21,8 @@ const App = (): JSX.Element => {
   const pageNumber = page - 1;
   const time = localStorage.getItem('lastSearch');
   const changePage = ({ selected }): void => setPage(selected + 1);
+  const { navigator }: any = window;
+  const language = navigator.userLanguage || navigator.language;
   return (
     <Layout>
       <Typography variant="h3" color="textPrimary" gutterBottom>
@@ -27,15 +30,20 @@ const App = (): JSX.Element => {
       </Typography>
       <SearchBar setQuery={setQuery} />
       <Typography variant="body2" color="textPrimary" gutterBottom>
-        Your last search was: {time}
+        Your last search was: {time} <br />
+        Your current language: {language}
       </Typography>
+
       {loaded ? (
-        <BooksList
-          docs={docs}
-          totalPages={totalPages}
-          changePage={changePage}
-          page={pageNumber}
-        />
+        <>
+          <Slider docs={docs} />
+          <BooksList
+            docs={docs}
+            totalPages={totalPages}
+            changePage={changePage}
+            page={pageNumber}
+          />
+        </>
       ) : (
         <Fade in={isLoading} unmountOnExit>
           <CircularProgress color="primary" />
