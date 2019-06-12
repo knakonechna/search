@@ -3,10 +3,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography/Typography';
 import { sliceLongText } from '../../../services';
 import { maxLengthOfTitle } from '../../../constants';
-import classnames from 'classnames';
 
 interface SlideViewProps {
-  path?: string;
   slideData?: any;
   classes: {
     img: string;
@@ -15,7 +13,6 @@ interface SlideViewProps {
 }
 
 const SlideView: FunctionComponent<SlideViewProps> = ({
-  path,
   slideData,
   classes,
 }): JSX.Element => {
@@ -32,7 +29,7 @@ const SlideView: FunctionComponent<SlideViewProps> = ({
   );
 };
 
-const styles = theme => ({
+const styles = () => ({
   slide: {
     textAlign: 'center' as 'center',
     height: '100%',
@@ -41,15 +38,12 @@ const styles = theme => ({
     flexDirection: 'column' as 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
+    transition: '.3s ease-in',
   },
   img: {
     width: 'auto',
     maxHeight: '80%',
-    transition: '.3s ease-in',
-  },
-  fadedImage: {
-    opacity: 0,
   },
 });
 
-export default withStyles(styles)(SlideView);
+export default withStyles(styles)(React.memo(SlideView));

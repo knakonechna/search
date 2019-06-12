@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/core';
 import { sliceLongText } from '../../services';
 
 import { IMG_PATH, maxLengthOfTitle } from '../../constants';
-import { BookInterface } from '../../interfaces/BookInterface';
+import { BookInterface } from '../../interfaces';
 
 interface BookCardProps {
   book: BookInterface;

@@ -1,4 +1,4 @@
-import React, { createRef, FunctionComponent, useState } from 'react';
+import React, { useRef, FunctionComponent, useState } from 'react';
 import SpeechRecognition from 'react-speech-recognition';
 import { withStyles } from '@material-ui/core';
 import MicroIcon from '../MicroIcon/MicroIcon';
@@ -36,7 +36,7 @@ const SearchBar: FunctionComponent<SearchBarProps> = ({
 }): JSX.Element => {
   const [isListen, setIsListen] = useState(false);
   const [query, setQueryValue] = useState('');
-  const searchRef = createRef<HTMLInputElement>();
+  const searchRef = useRef<HTMLInputElement>();
   const handleClick = (): void => {
     if (searchRef.current && searchRef.current.value.length >= 3) {
       setQuery(searchRef.current.value);

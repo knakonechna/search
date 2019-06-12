@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import ReactPaginate from 'react-paginate';
-import { BookInterface } from '../../interfaces/BookInterface';
+import { BookInterface } from '../../interfaces';
 import BookCard from '../BookCard/BookCard';
 import Grid from '@material-ui/core/Grid/Grid';
 import { withStyles } from '@material-ui/core';

@@ -18,7 +18,6 @@ const App = (): JSX.Element => {
   } = fetchSearchData(query, page);
   const loaded: boolean = !isLoading && numFound > 0;
   const totalPages = Math.ceil(numFound / booksOnOnePage);
-  const pageNumber = page - 1;
   const time = localStorage.getItem('lastSearch');
   const changePage = ({ selected }): void => setPage(selected + 1);
   const { navigator }: any = window;
@@ -33,7 +32,6 @@ const App = (): JSX.Element => {
         Your last search was: {time} <br />
         Your current language: {language}
       </Typography>
-
       {loaded ? (
         <>
           <Slider docs={docs} />
@@ -41,7 +39,7 @@ const App = (): JSX.Element => {
             docs={docs}
             totalPages={totalPages}
             changePage={changePage}
-            page={pageNumber}
+            page={page - 1}
           />
         </>
       ) : (
