@@ -42,7 +42,7 @@ const styles = () => ({
   },
   img: {
     width: 'auto',
-    maxHeight: '80%',
+    height: '80%',
   },
 });
 

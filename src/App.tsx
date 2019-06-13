@@ -9,6 +9,7 @@ import { booksOnOnePage } from './constants';
 import Typography from '@material-ui/core/Typography/Typography';
 import Grid from '@material-ui/core/Grid/Grid';
 import Slider from './components/Slider/Slider';
+import useWindowDimensions from './hooks/useRenderImageSize';
 
 const App = (): JSX.Element => {
   const [query, setQuery] = useState('');
@@ -23,6 +24,7 @@ const App = (): JSX.Element => {
   const changePage = ({ selected }): void => setPage(selected + 1);
   const { navigator }: any = window;
   const language = navigator.userLanguage || navigator.language;
+  const imageSize = useWindowDimensions();
   return (
     <Layout>
       <Typography variant="h3" color="textPrimary" gutterBottom>
@@ -35,12 +37,13 @@ const App = (): JSX.Element => {
       </Typography>
       {loaded ? (
         <>
-          <Slider docs={docs} />
+          <Slider imageSize={imageSize} docs={docs} />
           <BooksList
             docs={docs}
             totalPages={totalPages}
             changePage={changePage}
             page={page - 1}
+            imageSize={imageSize}
           />
         </>
       ) : (

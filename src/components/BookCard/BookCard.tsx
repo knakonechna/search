@@ -12,6 +12,7 @@ import { BookInterface } from '../../interfaces';
 
 interface BookCardProps {
   book: BookInterface;
+  imageSize: string;
   classes: {
     card: string;
     media: string;
@@ -21,12 +22,17 @@ interface BookCardProps {
 
 const BookCard: FunctionComponent<BookCardProps> = ({
   book,
+  imageSize,
   classes,
 }): JSX.Element => (
   <Card className={classes.card}>
     <CardMedia
       className={classes.media}
-      image={book.cover_i ? `${IMG_PATH}${book.cover_i}-L.jpg` : placeholder}
+      image={
+        book.cover_i
+          ? `${IMG_PATH}${book.cover_i}-${imageSize}.jpg`
+          : placeholder
+      }
     />
     <CardContent className={classes.content}>
       <Typography variant="h6" color="textPrimary" gutterBottom>

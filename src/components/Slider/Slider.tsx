@@ -9,6 +9,7 @@ import useInterval from '../../hooks/useInterval';
 
 interface SliderProps {
   docs: BookInterface[];
+  imageSize: string;
   classes: {
     container: string;
   };
@@ -16,12 +17,13 @@ interface SliderProps {
 
 const Slider: FunctionComponent<SliderProps> = ({
   docs,
+  imageSize,
   classes,
 }): JSX.Element => {
   const isOnFocus = windowFocusHandler();
   const [index, setIndex] = useState(0);
   const [delay, setDelay] = useState(5000);
-  const slideData = swapSlide(docs, index);
+  const slideData = swapSlide(docs, index, imageSize);
 
   const handlePrev = (): void => {
     if (index > 0) setIndex(index - 1);

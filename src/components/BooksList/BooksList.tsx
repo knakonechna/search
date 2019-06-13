@@ -14,12 +14,14 @@ interface BooksListProps {
     paginationContainer: string;
   };
   page: number;
+  imageSize: string;
 }
 
 const BooksList: FunctionComponent<BooksListProps> = ({
   docs,
   totalPages,
   changePage,
+  imageSize,
   classes,
   page,
 }): JSX.Element => (
@@ -27,7 +29,7 @@ const BooksList: FunctionComponent<BooksListProps> = ({
     <Grid container justify="space-between">
       {docs.map(
         (el: BookInterface): JSX.Element => (
-          <BookCard book={el} key={el.key} />
+          <BookCard imageSize={imageSize} book={el} key={el.key} />
         )
       )}
     </Grid>

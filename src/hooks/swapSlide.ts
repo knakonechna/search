@@ -3,7 +3,11 @@ import placeholder from '../static/img/book-cover-placeholder.png';
 import { IMG_PATH } from '../constants';
 import { BookInterface, SlideDataInterface } from '../interfaces';
 
-export default (docs: BookInterface[], index: number): SlideDataInterface => {
+export default (
+  docs: BookInterface[],
+  index: number,
+  imageSize: string
+): SlideDataInterface => {
   const [slideData, setData] = useState({
     title: '',
     image: '',
@@ -15,11 +19,13 @@ export default (docs: BookInterface[], index: number): SlideDataInterface => {
     // @ts-ignore
     setData({
       title: docs[index].title,
-      image: coverPath ? `${IMG_PATH}${coverPath}-L.jpg` : placeholder,
+      image: coverPath
+        ? `${IMG_PATH}${coverPath}-${imageSize}.jpg`
+        : placeholder,
       author: docs[index].author_name,
       publishYear: docs[index].first_publish_year,
     });
-  }, [docs, index]);
+  }, [docs, index, imageSize]);
 
   return slideData;
 };
