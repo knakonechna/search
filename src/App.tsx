@@ -7,6 +7,7 @@ import fetchSearchData from './hooks/fetchSearchData';
 import SearchBar from './components/SearchBar/SearchBar';
 import { booksOnOnePage } from './constants';
 import Typography from '@material-ui/core/Typography/Typography';
+import Grid from '@material-ui/core/Grid/Grid';
 import Slider from './components/Slider/Slider';
 
 const App = (): JSX.Element => {
@@ -43,9 +44,11 @@ const App = (): JSX.Element => {
           />
         </>
       ) : (
-        <Fade in={isLoading} unmountOnExit>
-          <CircularProgress color="primary" />
-        </Fade>
+        <Grid container justify="center">
+          <Fade in={isLoading} unmountOnExit>
+            <CircularProgress color="primary" />
+          </Fade>
+        </Grid>
       )}
     </Layout>
   );
