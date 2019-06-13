@@ -71,7 +71,7 @@ const SearchBar: FunctionComponent<SearchBarProps> = ({
         variant="outlined"
         inputRef={searchRef}
         onChange={e => setQueryValue(e.target.value)}
-        value={query}
+        value={query || transcript}
         className={classes.textField}
         onKeyPress={handleKeyPress}
       />
