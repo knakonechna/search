@@ -1,6 +1,6 @@
 import React, { useRef, FunctionComponent, useState } from 'react';
 import SpeechRecognition from 'react-speech-recognition';
-import { withStyles } from '@material-ui/core';
+import { withStyles, createStyles } from '@material-ui/core';
 import MicroIcon from '../MicroIcon/MicroIcon';
 import Button from '@material-ui/core/Button/Button';
 import Grid from '@material-ui/core/Grid/Grid';
@@ -92,20 +92,20 @@ const SearchBar: FunctionComponent<SearchBarProps> = ({
   );
 };
 
-const styles = {
+const styles = createStyles({
   searchContainer: {
     marginTop: 20,
     marginBottom: 20,
-    position: 'relative' as 'relative',
+    position: 'relative',
   },
   textField: {
     margin: 0,
     width: '100%',
-    position: 'absolute' as 'absolute',
+    position: 'absolute',
     '& > input': {
       padding: '18.5px 130px 18.5px 14px',
     },
   },
-};
+});
 
 export default withStyles(styles)(SpeechRecognition(options)(SearchBar));

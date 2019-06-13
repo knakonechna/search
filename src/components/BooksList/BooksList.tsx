@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate';
 import { BookInterface } from '../../interfaces';
 import BookCard from '../BookCard/BookCard';
 import Grid from '@material-ui/core/Grid/Grid';
-import { withStyles } from '@material-ui/core';
+import { withStyles, createStyles } from '@material-ui/core';
 
 interface BooksListProps {
   changePage({ selected: number }): void;
@@ -47,25 +47,26 @@ const BooksList: FunctionComponent<BooksListProps> = ({
     />
   </>
 );
-const styles = theme => ({
-  active: {
-    background: theme.palette.primary.main,
-    color: theme.palette.common.white,
-  },
-  paginationContainer: {
-    padding: 0,
-    margin: 0,
-    display: 'flex',
-    listStyle: 'none',
-    justifyContent: 'center',
-    '& > li': {
-      padding: 5,
-      margin: 2,
-      cursor: 'pointer',
+const styles = theme =>
+  createStyles({
+    active: {
+      background: theme.palette.primary.main,
+      color: theme.palette.common.white,
     },
-    '& > li.disabled': {
-      display: 'none',
+    paginationContainer: {
+      padding: 0,
+      margin: 0,
+      display: 'flex',
+      listStyle: 'none',
+      justifyContent: 'center',
+      '& > li': {
+        padding: 5,
+        margin: 2,
+        cursor: 'pointer',
+      },
+      '& > li.disabled': {
+        display: 'none',
+      },
     },
-  },
-});
+  });
 export default withStyles(styles)(BooksList);

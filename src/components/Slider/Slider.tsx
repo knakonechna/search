@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { withStyles, createStyles } from '@material-ui/core';
 import SlideView from './SlideView/SlideView';
 import { BookInterface } from '../../interfaces';
 import swapSlide from '../../hooks/swapSlide';
@@ -35,7 +35,7 @@ const Slider: FunctionComponent<SliderProps> = ({
   };
   useInterval(handleNext, delay);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (!isOnFocus) {
       setDelay(0);
     } else {
@@ -51,18 +51,19 @@ const Slider: FunctionComponent<SliderProps> = ({
   );
 };
 
-const styles = ({ breakpoints }) => ({
-  container: {
-    height: 500,
-    marginBottom: 50,
-    padding: '50px 0px',
-    background: '#eeeff1',
-    position: 'relative' as 'relative',
-    [breakpoints.up('lg')]: {
-      height: 400,
-      width: '100%',
+const styles = ({ breakpoints }) =>
+  createStyles({
+    container: {
+      height: 500,
+      marginBottom: 50,
+      padding: '50px 0px',
+      background: '#eeeff1',
+      position: 'relative',
+      [breakpoints.up('lg')]: {
+        height: 400,
+        width: '100%',
+      },
     },
-  },
-});
+  });
 
 export default withStyles(styles)(Slider);

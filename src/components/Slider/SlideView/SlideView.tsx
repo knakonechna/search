@@ -1,11 +1,12 @@
 import React, { FunctionComponent } from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { withStyles, createStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography/Typography';
 import { sliceLongText } from '../../../services';
 import { maxLengthOfTitle } from '../../../constants';
+import { SlideDataInterface } from '../../../interfaces';
 
 interface SlideViewProps {
-  slideData?: any;
+  slideData: SlideDataInterface;
   classes: {
     img: string;
     slide: string;
@@ -29,21 +30,22 @@ const SlideView: FunctionComponent<SlideViewProps> = ({
   );
 };
 
-const styles = () => ({
-  slide: {
-    textAlign: 'center' as 'center',
-    height: '100%',
-    position: 'relative' as 'relative',
-    display: 'flex',
-    flexDirection: 'column' as 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    transition: '.3s ease-in',
-  },
-  img: {
-    width: 'auto',
-    height: '80%',
-  },
-});
+const styles = () =>
+  createStyles({
+    slide: {
+      textAlign: 'center',
+      height: '100%',
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      transition: '.3s ease-in',
+    },
+    img: {
+      width: 'auto',
+      height: '80%',
+    },
+  });
 
 export default withStyles(styles)(React.memo(SlideView));

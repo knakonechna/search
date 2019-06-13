@@ -1,16 +1,19 @@
 import React, { FunctionComponent } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import SvgIcon from '@material-ui/core/SvgIcon';
-import { withStyles } from '@material-ui/core';
+import { withStyles, createStyles } from '@material-ui/core';
 
-const styles = {
+const styles = createStyles({
   icon: {
     height: 32,
   },
-};
+});
+
 interface MicroIconProps {
   handleListening(): void;
-  classes: any;
+  classes: {
+    icon: string;
+  };
   isActive: boolean;
   className: string;
 }

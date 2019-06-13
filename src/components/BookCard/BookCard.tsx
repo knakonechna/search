@@ -4,7 +4,7 @@ import placeholder from '../../static/img/book-cover-placeholder.png';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core';
+import { withStyles, createStyles } from '@material-ui/core';
 import { sliceLongText } from '../../services';
 
 import { IMG_PATH, maxLengthOfTitle } from '../../constants';
@@ -44,39 +44,40 @@ const BookCard: FunctionComponent<BookCardProps> = ({
     </CardContent>
   </Card>
 );
-const styles = ({ breakpoints }) => ({
-  card: {
-    marginBottom: 15,
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column' as 'column',
-    background: '#eeeff1',
-    [breakpoints.up('md')]: {
-      flexDirection: 'row' as 'row',
-      width: 'calc(50% - 7.5px)',
+const styles = ({ breakpoints }) =>
+  createStyles({
+    card: {
+      marginBottom: 15,
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      background: '#eeeff1',
+      [breakpoints.up('md')]: {
+        flexDirection: 'row',
+        width: 'calc(50% - 7.5px)',
+      },
+      [breakpoints.up('lg')]: {
+        height: 230,
+        width: 'calc(33% - 7.5px)',
+      },
     },
-    [breakpoints.up('lg')]: {
-      height: 230,
-      width: 'calc(33% - 7.5px)',
+    media: {
+      height: 200,
+      backgroundColor: '#fff',
+      [breakpoints.up('md')]: {
+        width: 200,
+        height: '100%',
+      },
+      [breakpoints.up('lg')]: {
+        width: 214,
+      },
     },
-  },
-  media: {
-    height: 200,
-    backgroundColor: '#fff',
-    [breakpoints.up('md')]: {
-      width: 200,
-      height: '100%',
+    content: {
+      flex: 2,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      textAlign: 'center',
     },
-    [breakpoints.up('lg')]: {
-      width: 214,
-    },
-  },
-  content: {
-    flex: 2,
-    display: 'flex',
-    flexDirection: 'column' as 'column',
-    justifyContent: 'space-between',
-    textAlign: 'center' as 'center',
-  },
-});
+  });
 export default withStyles(styles)(BookCard);
