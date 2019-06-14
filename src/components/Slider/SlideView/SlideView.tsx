@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { withStyles, createStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography/Typography';
 import { sliceLongText } from '../../../services';
-import { maxLengthOfTitle } from '../../../constants';
+import { MAX_LENGTH_OF_TITLE } from '../../../constants';
 import { SlideDataInterface } from '../../../interfaces';
 
 interface SlideViewProps {
@@ -21,7 +21,7 @@ const SlideView: FunctionComponent<SlideViewProps> = ({
     <div className={classes.slide}>
       <img className={classes.img} src={slideData.image} alt="" />
       <Typography variant="h6" color="textPrimary" gutterBottom>
-        {sliceLongText(slideData.title, maxLengthOfTitle)}
+        {sliceLongText(slideData.title, MAX_LENGTH_OF_TITLE)}
       </Typography>
       <Typography variant="body2" color="textPrimary" gutterBottom>
         {slideData.author} {slideData.publishYear}

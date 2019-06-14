@@ -5,7 +5,7 @@ import Layout from './components/Layout/Layout';
 import BooksList from './components/BooksList/BooksList';
 import fetchSearchData from './hooks/fetchSearchData';
 import SearchBar from './components/SearchBar/SearchBar';
-import { booksOnOnePage } from './constants';
+import { BOOKS_ON_ONE_PAGE } from './constants';
 import Typography from '@material-ui/core/Typography/Typography';
 import Grid from '@material-ui/core/Grid/Grid';
 import Slider from './components/Slider/Slider';
@@ -19,7 +19,7 @@ const App = (): JSX.Element => {
     isLoading,
   } = fetchSearchData(query, page);
   const loaded: boolean = !isLoading && numFound > 0;
-  const totalPages = Math.ceil(numFound / booksOnOnePage);
+  const totalPages = Math.ceil(numFound / BOOKS_ON_ONE_PAGE);
   const time = localStorage.getItem('lastSearch');
   const changePage = ({ selected }): void => setPage(selected + 1);
   const { navigator }: any = window;

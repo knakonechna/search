@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles, createStyles } from '@material-ui/core';
 import { sliceLongText } from '../../services';
 
-import { IMG_PATH, maxLengthOfTitle } from '../../constants';
+import { IMG_PATH, MAX_LENGTH_OF_TITLE } from '../../constants';
 import { BookInterface } from '../../interfaces';
 
 interface BookCardProps {
@@ -36,7 +36,7 @@ const BookCard: FunctionComponent<BookCardProps> = ({
     />
     <CardContent className={classes.content}>
       <Typography variant="h6" color="textPrimary" gutterBottom>
-        {sliceLongText(book.title, maxLengthOfTitle)}
+        {sliceLongText(book.title, MAX_LENGTH_OF_TITLE)}
       </Typography>
       <Typography variant="body2" color="textPrimary" gutterBottom>
         {book.author_name} {book.first_publish_year}
