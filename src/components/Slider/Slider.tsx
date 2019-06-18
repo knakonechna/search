@@ -18,31 +18,35 @@ const Slider: FunctionComponent<SliderProps> = ({
   classes,
 }): JSX.Element => {
   const isOnFocus = windowFocusHandler();
-  const [index, setIndex] = useState(0);
-  const [delay, setDelay] = useState(5000);
+  const [state, setState] = useState({
+    index: 0,
+    delay: 5000,
+  });
   const handlePrev = (): void => {
-    if (index > 0) setIndex(index - 1);
-    if (index === 0) setIndex(docs.length - 1);
+    state.index > 0
+      ? setState({ index: state.index - 1, delay: state.delay })
+      : setState({ index: docs.length - 1, delay: state.delay });
   };
   const handleNext = (): void => {
-    if (index < docs.length - 1) setIndex(index + 1);
-    if (docs.length - 1 === index) setIndex(0);
+    state.index < docs.length - 1
+      ? setState({ index: state.index + 1, delay: state.delay })
+      : setState({ index: 0, delay: state.delay });
   };
-  useInterval(handleNext, delay, index);
+  useInterval(handleNext, state.delay, state.index);
 
   useEffect((): void => {
     if (!isOnFocus) {
-      setDelay(0);
+      setState({ index: state.index, delay: 0 });
     } else {
-      setDelay(5000);
+      setState({ index: state.index, delay: 5000 });
     }
-  }, [isOnFocus]);
+  }, [isOnFocus, state.index]);
 
   return (
     <div className={classes.container}>
       <div
         className={classes.wrapper}
-        style={{ transform: `translateX(${-index * 100}%` }}
+        style={{ transform: `translateX(${-state.index * 100}%` }}
       >
         {docs.map((slide: BookInterface) => (
           <SlideView key={slide.key} slideData={slide} imageSize={imageSize} />
