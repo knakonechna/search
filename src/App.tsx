@@ -12,29 +12,26 @@ import Slider from './components/Slider/Slider';
 import useWindowDimensions from './hooks/useRenderImageSize';
 
 const App = (): JSX.Element => {
-  const [query, setQuery] = useState('');
-  const [page, setPage] = useState(1);
+  const [state, setState] = useState({
+    query: '',
+    page: 1,
+  });
   const {
     data: { docs, numFound },
     isLoading,
-  } = fetchSearchData(query, page);
-  const loaded: boolean = !isLoading && numFound > 0;
+  } = fetchSearchData(state.query, state.page);
+
+  const loaded = !isLoading && numFound > 0;
   const totalPages = Math.ceil(numFound / BOOKS_ON_ONE_PAGE);
-  const time = localStorage.getItem('lastSearch');
-  const changePage = ({ selected }): void => setPage(selected + 1);
-  const { navigator }: any = window;
-  const language = navigator.userLanguage || navigator.language;
+  const changePage = ({ selected }): void =>
+    setState({ query: state.query, page: selected });
   const imageSize = useWindowDimensions();
   return (
     <Layout>
       <Typography variant="h3" color="textPrimary" gutterBottom>
         Let`s search book for you!
       </Typography>
-      <SearchBar setQuery={setQuery} />
-      <Typography variant="body2" color="textPrimary" gutterBottom>
-        Your last search was: {time} <br />
-        Your current language: {language}
-      </Typography>
+      <SearchBar setQuery={setState} />
       {loaded ? (
         <>
           <Slider imageSize={imageSize} docs={docs} />
@@ -42,7 +39,7 @@ const App = (): JSX.Element => {
             docs={docs}
             totalPages={totalPages}
             changePage={changePage}
-            page={page - 1}
+            page={state.page}
             imageSize={imageSize}
           />
         </>
