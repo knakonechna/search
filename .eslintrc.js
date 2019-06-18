@@ -15,5 +15,6 @@ module.exports = {
     "react/no-unescaped-entities": 1,
     "no-unused-vars": 1,
     "@typescript-eslint/explicit-function-return-type": 1,
+    "@typescript-eslint/camelcase": 0
   }
 };

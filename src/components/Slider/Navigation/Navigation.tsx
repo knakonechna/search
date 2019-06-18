@@ -31,7 +31,7 @@ const Navigation: FunctionComponent<NavigationProps> = ({
   );
 };
 
-const styles = ({ breakpoints }) =>
+const styles = () =>
   createStyles({
     arrow: {
       position: 'absolute',
@@ -43,19 +43,13 @@ const styles = ({ breakpoints }) =>
     },
     arrowPrev: {
       borderLeft: '1px solid#000',
-      left: -10,
+      left: 20,
       transform: 'rotate(-45deg) translate(60%, 0%)',
-      [breakpoints.up('md')]: {
-        left: 20,
-      },
     },
     arrowNext: {
       borderRight: '1px solid#000',
-      right: -10,
+      right: 20,
       transform: 'rotate(45deg) translate(-60%, 0%)',
-      [breakpoints.up('md')]: {
-        right: 20,
-      },
     },
   });
 
