@@ -10,6 +10,9 @@ import { IMG_PATH } from '../../../constants';
 interface SlideViewProps {
   slideData: BookInterface;
   classes: any;
+  theta: number;
+  index: number;
+  radius: number;
   imageSize: string;
 }
 
@@ -17,13 +20,16 @@ const SlideView: FunctionComponent<SlideViewProps> = ({
   slideData,
   classes,
   imageSize,
+  theta,
+  index,
+  radius,
 }): JSX.Element => {
   return (
     <Grid
-      container
-      direction="column"
-      justify="center"
       className={classes.slide}
+      style={{
+        transform: `rotateY(${theta * index}deg) translateZ(${radius}px)`,
+      }}
     >
       <img
         className={classes.img}
@@ -47,9 +53,13 @@ const SlideView: FunctionComponent<SlideViewProps> = ({
 const styles = ({ breakpoints }) =>
   createStyles({
     slide: {
-      alignItems: 'center',
-      minWidth: '100%',
+      position: 'absolute',
+      width: '100%',
       height: '100%',
+      left: 0,
+      top: 0,
+      backgroundColor: '#fff',
+      textAlign: 'center',
     },
     img: {
       width: 'auto',

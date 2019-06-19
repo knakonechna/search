@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState, useRef } from 'react';
 import { withStyles, createStyles } from '@material-ui/core';
 import SlideView from './SlideView/SlideView';
 import { BookInterface } from '../../interfaces';
@@ -17,20 +17,25 @@ const Slider: FunctionComponent<SliderProps> = ({
   imageSize,
   classes,
 }): JSX.Element => {
+  let theta, radius, angle;
   const isOnFocus = windowFocusHandler();
   const [state, setState] = useState({
     index: 0,
     delay: 5000,
   });
+  const sliderRef = useRef<HTMLDivElement>(null);
+  theta = 360 / docs.length;
+  if (sliderRef.current) {
+    radius = Math.round(
+      sliderRef.current.offsetWidth / 2 / Math.tan(Math.PI / docs.length)
+    );
+  }
+  angle = theta * state.index * -1;
   const handlePrev = (): void => {
-    state.index > 0
-      ? setState({ index: state.index - 1, delay: state.delay })
-      : setState({ index: docs.length - 1, delay: state.delay });
+    setState({ index: state.index - 1, delay: state.delay });
   };
   const handleNext = (): void => {
-    state.index < docs.length - 1
-      ? setState({ index: state.index + 1, delay: state.delay })
-      : setState({ index: 0, delay: state.delay });
+    setState({ index: state.index + 1, delay: state.delay });
   };
   useInterval(handleNext, state.delay, state.index);
 
@@ -46,10 +51,18 @@ const Slider: FunctionComponent<SliderProps> = ({
     <div className={classes.container}>
       <div
         className={classes.wrapper}
-        style={{ transform: `translateX(${-state.index * 100}%` }}
+        ref={sliderRef}
+        style={{ transform: ` translateZ(-${radius}px) rotateY(${angle}deg)` }}
       >
-        {docs.map((slide: BookInterface) => (
-          <SlideView key={slide.key} slideData={slide} imageSize={imageSize} />
+        {docs.map((slide: BookInterface, i: number) => (
+          <SlideView
+            key={slide.key}
+            slideData={slide}
+            imageSize={imageSize}
+            radius={radius}
+            index={i}
+            theta={theta}
+          />
         ))}
       </div>
       <Navigation handlePrev={handlePrev} handleNext={handleNext} />
@@ -63,21 +76,21 @@ const styles = ({ breakpoints }) =>
       height: 500,
       width: '100%',
       marginBottom: 50,
-      padding: '50px 0px',
-      background: '#eeeff1',
       position: 'relative',
       overflow: 'hidden',
+      padding: '50px 0',
+      backgroundColor: '#fff',
       [breakpoints.up('lg')]: {
         height: 400,
         width: '100%',
       },
     },
     wrapper: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      transition: '.75s ease-in',
+      width: '100%',
+      height: '100%',
+      transition: 'transform 1s',
+      transformStyle: 'preserve-3d',
+      position: 'absolute',
     },
   });
 
