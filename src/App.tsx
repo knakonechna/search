@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Grid from '@material-ui/core/Grid/Grid';
 import Slider from './components/Slider/Slider';
 import useWindowDimensions from './hooks/useRenderImageSize';
+import LastSearchTimer from './components/LastSearchTimer/LastSearchTimer';
 
 const App = (): JSX.Element => {
   const [state, setState] = useState({
@@ -34,6 +35,7 @@ const App = (): JSX.Element => {
       <SearchBar setQuery={setState} />
       {loaded ? (
         <>
+          <LastSearchTimer />
           <Slider imageSize={imageSize} docs={docs} />
           <BooksList
             docs={docs}
