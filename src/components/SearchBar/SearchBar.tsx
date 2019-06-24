@@ -1,5 +1,4 @@
 import React, { useRef, FunctionComponent, useState } from 'react';
-import SpeechRecognition from 'react-speech-recognition';
 import {
   withStyles,
   createStyles,
@@ -10,31 +9,34 @@ import MicroIcon from '../MicroIcon/MicroIcon';
 import Button from '@material-ui/core/Button/Button';
 import Grid from '@material-ui/core/Grid/Grid';
 
-const options = {
-  autoStart: false,
-};
-
 interface SearchBarProps {
   setQuery({ query: string, page: number }): void;
-  transcript: string;
-  resetTranscript: void;
-  browserSupportsSpeechRecognition: boolean;
-  startListening(): void;
-  stopListening(): void;
   classes: any;
 }
+
+interface Window {
+  webkitSpeechRecognition: any;
+  SpeechRecognition: any;
+  msSpeechRecognition: any;
+  mozSpeechRecognition: any;
+}
+
+declare var window: Window;
 
 const SearchBar: FunctionComponent<SearchBarProps> = ({
   classes,
   setQuery,
-  transcript,
-  resetTranscript,
-  browserSupportsSpeechRecognition,
-  startListening,
-  stopListening,
 }): JSX.Element => {
   const [isListen, setIsListen] = useState(false);
   const [query, setQueryValue] = useState('');
+  const recognition = new (window.SpeechRecognition ||
+    window.webkitSpeechRecognition ||
+    window.mozSpeechRecognition ||
+    window.msSpeechRecognition)();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 5;
+
   const searchRef = useRef<HTMLInputElement>();
   const isValidField = searchRef.current && searchRef.current.value.length >= 3;
   const handleClick = (): void => {
@@ -42,19 +44,23 @@ const SearchBar: FunctionComponent<SearchBarProps> = ({
       setQuery({ query: searchRef.current.value, page: 1 });
     }
   };
-
   const handleKeyPress = (event): void => {
     if (event.key === 'Enter') handleClick();
   };
-
   const handleListening = (): void => {
     if (isListen) {
-      stopListening();
+      recognition.end();
     } else {
-      startListening();
-      setQueryValue(transcript);
+      recognition.start();
+      setQueryValue('');
     }
     setIsListen(!isListen);
+  };
+
+  recognition.onresult = event => setQueryValue(event.results[0][0].transcript);
+  recognition.onend = (): void => {
+    setIsListen(false);
+    handleClick();
   };
 
   return (
@@ -71,7 +77,7 @@ const SearchBar: FunctionComponent<SearchBarProps> = ({
         variant="outlined"
         inputRef={searchRef}
         onChange={e => setQueryValue(e.target.value)}
-        value={query || transcript}
+        value={query}
         className={classes.textField}
         onKeyPress={handleKeyPress}
       />
@@ -118,4 +124,4 @@ const styles = createStyles({
   },
 });
 
-export default withStyles(styles)(SpeechRecognition(options)(SearchBar));
+export default withStyles(styles)(SearchBar);
